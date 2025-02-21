@@ -1,28 +1,30 @@
+
+
 CREATE TABLE direction(
      idDirection SERIAL PRIMARY KEY ,
-     nom VARCHAR
+     nom VARCHAR UNIQUE
 );
  CREATE TABLE service(
       idService SERIAL PRIMARY KEY ,
-      nom VARCHAR,
+      nom VARCHAR UNIQUE ,
       idDirection INT REFERENCES direction(idDirection)
  );
  CREATE TABLE fonction(
    idFonction SERIAL PRIMARY KEY ,
-   nom VARCHAR
+   nom VARCHAR UNIQUE
  );
 CREATE TABLE CatOR(
     IdCatOr SERIAL PRIMARY KEY ,
-    nom VARCHAR,
-    codeGrade VARCHAR,
-    indice VARCHAR
+    nom VARCHAR UNIQUE ,
+    codeGrade VARCHAR UNIQUE ,
+    indice VARCHAR UNIQUE
 );
 CREATE TABLE personnel(
     idPersonnel SERIAL PRIMARY KEY ,
     matricule VARCHAR UNIQUE ,
     nom VARCHAR,
     prenom VARCHAR,
-    CIN VARCHAR(12),
+    CIN VARCHAR(12) UNIQUE ,
     CIN_du date,
     email VARCHAR UNIQUE ,
     tel VARCHAR(10) UNIQUE
@@ -70,9 +72,25 @@ CREATE TABLE inscription(
 CREATE TABLE utilisateur(
     idUtilisateur SERIAL PRIMARY KEY ,
     dates date,
-    idPersonnel INT REFERENCES personnel(idPersonnel),
+    idPersonnel INT REFERENCES personnel(idPersonnel) UNIQUE ,
     idRole INT REFERENCES role(idRole),
     pwd VARCHAR
+);
+CREATE TABLE import_personnel(
+     idimport_personnel SERIAL PRIMARY KEY ,
+     IM VARCHAR,
+     nom VARCHAR,
+     prenom VARCHAR,
+     CIN VARCHAR,
+     date_CIN DATE,
+     indice VARCHAR,
+     catOr VARCHAR,
+     code_grade VARCHAR,
+     fonction VARCHAR,
+     tel VARCHAR,
+     direction VARCHAR,
+     service VARCHAR,
+     idUtilisateur INT REFERENCES utilisateur(idUtilisateur)
 );
 CREATE TABLE region(
     idRegion SERIAL PRIMARY KEY ,
@@ -101,18 +119,4 @@ CREATE TABLE itineraire(
     idRegion_depart INT REFERENCES region(idRegion),
     idRegion_arriver INT REFERENCES region(idRegion),
     idTransport INT REFERENCES transport(idtransport)
-);
-CREATE TABLE depart_valider(
-  idDepart_valider SERIAL PRIMARY KEY ,
-  dates DATE,
-  idDepart INT REFERENCES depart(idDepart),
-  idUtilisateur INT REFERENCES utilisateur(idUtilisateur),
-  nb VARCHAR
-);
-CREATE TABLE depart_refuser(
-    idDepart_refuser SERIAL PRIMARY KEY ,
-    dates DATE,
-    idDepart INT REFERENCES depart(idDepart),
-    idUtilisateur INT REFERENCES utilisateur(idUtilisateur),
-    nb VARCHAR
 );
