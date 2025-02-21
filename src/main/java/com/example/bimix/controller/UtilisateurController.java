@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/Personnel")
+@RequestMapping("/Utilisateur")
 public class UtilisateurController {
     @Autowired
     PersonnelService personnelService;

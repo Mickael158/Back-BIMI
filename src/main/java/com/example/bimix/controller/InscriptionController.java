@@ -39,49 +39,28 @@ public class InscriptionController {
     public ResponseEntity<HashMap> insertion_Inscription(@RequestBody HashMap<String , String> data) throws Exception {
         HashMap<String, Object> result = new HashMap<>();
         String matricule = data.get("matricule");
-        String nom = data.get("nom");
-        String prenom = data.get("prenom");
-        String CIN = data.get("CIN");
-        String CIN_du = data.get("CIN_du");
-        String indice = data.get("indice");
-        String CatOR = data.get("CatOR");
         String email = data.get("email");
-        String idFonction = data.get("idFonction");
-        String idService = data.get("idService");
-        String IdCatOr = data.get("IdCatOr");
         String tel = data.get("tel");
         String pwd = data.get("pwd");
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String hashedPassword = passwordEncoder.encode(pwd);
-        Optional<Fonction> fonction = this.fonctionService.select_Fonction_By_id(Integer.parseInt(idFonction));
-        Optional<ServiceM> serviceM = this.serviceService.select_ServiceM_By_id(Integer.parseInt(idService));
-        Optional<com.example.bimix.model.CatOR> catOR = this.catORService.select_CatOR_By_id(Integer.parseInt(IdCatOr));
-        int min = 100000;
+         int min = 100000;
         int max = 999999;
         Random random = new Random();
         int randomNumber = min + random.nextInt(max - min + 1);
         Inscription i = new Inscription();
         i.setMatricule(matricule);
-        i.setNom(nom);
-        i.setPrenom(prenom);
-        i.setCIN(CIN);
-        i.setCIN_du(Date.valueOf(CIN_du));
-        i.setIndice(indice);
-        i.setCatOR(CatOR);
-        i.setEmail(email);
         i.setTel(tel);
+        i.setEmail(email);
         i.setPwd(hashedPassword);
         i.setCles(String.valueOf(randomNumber));
-        i.setIdFonction(fonction.get());
-        i.setIdService(serviceM.get());
-        i.setIdCatOr(catOR.get());
         try {
             Optional<Personnel> personnel = personnelService.select_Personnel_By_IM(matricule);
             if (personnel.isPresent()){
                 Inscription inscription = this.inscriptionService.enregistrerInscription(i);
 
                 emailService.sendSimpleMessage(email, "Confirmation d'inscription",
-                        "Bonjour " + prenom + ",\n\nVotre inscription a été enregistrée avec succès !\n\nVotre clé d'inscription est : " + randomNumber + "\n\nMerci.");
+                        "Bonjour " + personnel.get().getNom() +" "+ personnel.get().getPrenom() + ",\n\nVotre inscription a été enregistrée avec succès !\n\nVotre clé d'inscription est : " + randomNumber + "\n\nMerci.");
 
                 result.put("data", "Inscription Enregistrer");
             }
