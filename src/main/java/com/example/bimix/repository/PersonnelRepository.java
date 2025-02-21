@@ -13,5 +13,5 @@ public interface PersonnelRepository extends JpaRepository<Personnel, Integer> {
     @Query(value = """
     SELECT * FROM personnel WHERE matricule=:matricule
     """,nativeQuery = true)
-    Optional<Personnel> findEmailPerson(@Param("matricule") String matricule);
+    Optional<Personnel> findPersonIM(@Param("matricule") String matricule);
 }

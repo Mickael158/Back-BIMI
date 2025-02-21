@@ -1,9 +1,6 @@
 package com.example.bimix.controller;
 
-import com.example.bimix.model.CatOR;
-import com.example.bimix.model.Fonction;
-import com.example.bimix.model.Inscription;
-import com.example.bimix.model.ServiceM;
+import com.example.bimix.model.*;
 import com.example.bimix.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,6 +32,8 @@ public class InscriptionController {
 
     @Autowired
     CatORService catORService;
+    @Autowired
+    PersonnelService personnelService;
 
     @PostMapping("/insertion_Inscription")
     public ResponseEntity<HashMap> insertion_Inscription(@RequestBody HashMap<String , String> data) throws Exception {
@@ -77,12 +76,18 @@ public class InscriptionController {
         i.setIdService(serviceM.get());
         i.setIdCatOr(catOR.get());
         try {
-            Inscription inscription = this.inscriptionService.enregistrerInscription(i);
+            Optional<Personnel> personnel = personnelService.select_Personnel_By_IM(matricule);
+            if (personnel.isPresent()){
+                Inscription inscription = this.inscriptionService.enregistrerInscription(i);
 
-            emailService.sendSimpleMessage(email, "Confirmation d'inscription",
-                    "Bonjour " + prenom + ",\n\nVotre inscription a été enregistrée avec succès !\n\nVotre clé d'inscription est : " + randomNumber + "\n\nMerci.");
+                emailService.sendSimpleMessage(email, "Confirmation d'inscription",
+                        "Bonjour " + prenom + ",\n\nVotre inscription a été enregistrée avec succès !\n\nVotre clé d'inscription est : " + randomNumber + "\n\nMerci.");
 
-            result.put("data", "Inscription Enregistrer");
+                result.put("data", "Inscription Enregistrer");
+            }
+            else {
+                result.put("data", "Votre Matricule n'est pas encore enregistrer");
+            }
             return new ResponseEntity<>(result , HttpStatus.OK);
         }catch (Exception e) {
             System.out.print("Erreur" + e.getMessage());

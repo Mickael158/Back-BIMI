@@ -17,7 +17,7 @@ public class LoginService {
     private UtilisateurRepository utilisateurRepository;
 
     public Utilisateur login(String matricule) throws Exception {
-        Optional<Personnel> personne = this.personneRepository.findEmailPerson(matricule);
+        Optional<Personnel> personne = this.personneRepository.findPersonIM(matricule);
         if (personne.isPresent()){
             Optional<Utilisateur> utilisateur = this.utilisateurRepository.findUtilisateur(personne.get().getIdPersonnel());
             if (utilisateur.isPresent()){

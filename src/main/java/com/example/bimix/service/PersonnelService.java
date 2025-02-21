@@ -19,6 +19,9 @@ public class PersonnelService {
     public Optional<Personnel> select_Personnel_By_id(int id) {
         return this.personnelRepository.findById(id);
     }
+    public Optional<Personnel> select_Personnel_By_IM(String id) {
+        return this.personnelRepository.findPersonIM(id);
+    }
 
     public void delete_Personnel_By_id(int id) {
         this.personnelRepository.deleteById(id);

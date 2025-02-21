@@ -1,7 +1,9 @@
 package com.example.bimix.controller.crud;
 
 import com.example.bimix.model.CatOR;
+import com.example.bimix.model.Region;
 import com.example.bimix.service.CatORService;
+import com.example.bimix.service.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,62 +15,58 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/CatOR")
-public class CatORController {
+@RequestMapping("/Region")
+public class RegionController {
     @Autowired
-    CatORService catORService;
+    RegionService regionService;
 
-    @PostMapping("/insertion_CatOR")
-    public ResponseEntity<HashMap> insertion_CatOR(@RequestBody HashMap<String , String> data) throws Exception {
+    @PostMapping("/insertion_Region")
+    public ResponseEntity<HashMap> insertion_Region(@RequestBody HashMap<String , String> data) throws Exception {
         HashMap<String, Object> result = new HashMap<>();
-        String nom_catOr = data.get("nom_catOr");
-        String codeGrade = data.get("codeGrade");
-        String indice = data.get("indice");
-        CatOR c = new CatOR();
-        c.setNom(nom_catOr);
-        c.setCodeGrade(codeGrade);
-        c.setIndice(codeGrade);
+        String nom_Region = data.get("nom_Region");
+        Region r = new Region();
+        r.setNom(nom_Region);
         try {
-            CatOR catOR = this.catORService.enregistrerCatOR(c);
-            result.put("data", "Catégorie Org Enregistrer");
+            Region region = this.regionService.enregistrerRegion(r);
+            result.put("data", "Région Enregistrer");
             return new ResponseEntity<>(result , HttpStatus.OK);
         }catch (Exception e) {
             System.out.print("Erreur" + e.getMessage());
-            result.put("Erreur" , "Une erreur s'est produite lors de l'insertion de la catégorie Org.");
+            result.put("Erreur" , "Une erreur s'est produite lors de l'insertion de la région.");
         }
         return new ResponseEntity<>(result , HttpStatus.OK);
     }
-    @GetMapping("/select_CatOR_by_Id/{id}")
-    public ResponseEntity<HashMap> selectAll_CatOR_byId(@PathVariable("id") int id) throws Exception {
+    @GetMapping("/select_Region_by_Id/{id}")
+    public ResponseEntity<HashMap> selectAll_Region_byId(@PathVariable("id") int id) throws Exception {
         HashMap<String, Object> result = new HashMap<>();
         try {
-            Optional<CatOR> catOR = this.catORService.select_CatOR_By_id(id);
-            result.put("data",catOR);
+            Optional<Region> region = this.regionService.select_Region_By_id(id);
+            result.put("data",region);
             return new ResponseEntity<>(result , HttpStatus.OK);
         }catch (Exception e) {
             result.put("Erreur" , e.getMessage());
         }
         return new ResponseEntity<>(result , HttpStatus.OK);
     }
-    @DeleteMapping("/delete_CatOR_by_Id/{id}")
-    public ResponseEntity<HashMap> delete_CatOR_by_Id(@PathVariable("id") int id) throws Exception {
+    @DeleteMapping("/delete_Region_by_Id/{id}")
+    public ResponseEntity<HashMap> delete_Region_by_Id(@PathVariable("id") int id) throws Exception {
         HashMap<String, Object> result = new HashMap<>();
         try {
-            this.catORService.delete_CatOR_By_id(id);
-            result.put("data","Catégorie Org supprimer");
+            this.regionService.delete_Region_By_id(id);
+            result.put("data","Régionsupprimer");
             return new ResponseEntity<>(result , HttpStatus.OK);
         }catch (Exception e) {
             System.out.println("Erreur" + e.getMessage());
-            result.put("Erreur" , "Une erreur s'est produite lors de la suppression de la catégorie Org.");
+            result.put("Erreur" , "Une erreur s'est produite lors de la suppression de la région.");
         }
         return new ResponseEntity<>(result , HttpStatus.OK);
     }
-    @GetMapping("/selectAll_CatOR")
-    public ResponseEntity<HashMap> selectAll_CatOR() throws Exception {
+    @GetMapping("/selectAll_Region")
+    public ResponseEntity<HashMap> selectAll_directions() throws Exception {
         HashMap<String, Object> result = new HashMap<>();
         try {
-            List<CatOR> catORS = this.catORService.selectAll_CatOR();
-            result.put("data",catORS);
+            List<Region> region = this.regionService.selectAll_Region();
+            result.put("data",region);
             return new ResponseEntity<>(result , HttpStatus.OK);
         }catch (Exception e) {
             result.put("Erreur" , e.getMessage());
