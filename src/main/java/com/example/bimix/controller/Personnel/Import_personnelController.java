@@ -1,4 +1,4 @@
-package com.example.bimix.controller;
+package com.example.bimix.controller.Personnel;
 
 
 import com.example.bimix.configuration.JWTManager;

@@ -82,7 +82,7 @@ public class Import_PersonnelService {
     public List<Import_Personnel> findAll(String file) throws IOException, ParseException {
         List<Import_Personnel> import_personnels = new ArrayList<>();
         Import_Personnel import_personnel;
-        List<String[]> str_data = getDonnee(file);
+        List<String[]> str_data = getDonnee("D:/Projet/BIMI/"+file);
         for (int i=0; i<str_data.size(); i++) {
             import_personnel = new Import_Personnel();
             import_personnel.setIM(String.valueOf(Date.valueOf(str_data.get(i)[0])));

@@ -19,9 +19,15 @@ public class InscriptionService {
     public Optional<Inscription> select_Inscription_By_id(int id) {
         return this.inscriptionRepository.findById(id);
     }
+    public Optional<Inscription> selectInscriptionByIm(String im) {
+        return this.inscriptionRepository.selectInscriptionByIm(im);
+    }
 
     public void delete_Inscription_By_id(int id) {
         this.inscriptionRepository.deleteById(id);
+    }
+    public void deleteByMatricule(String IM) {
+        this.inscriptionRepository.deleteByMatricule(IM);
     }
     public List<Inscription> selectAll_Inscription() {
         return this.inscriptionRepository.findAll();

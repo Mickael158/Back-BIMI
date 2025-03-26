@@ -3,6 +3,7 @@ package com.example.bimix.controller;
 import com.example.bimix.configuration.JWTManager;
 import com.example.bimix.model.*;
 import com.example.bimix.service.*;
+import com.example.bimix.service.ApiDepart.SIGTA_depart;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,11 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping("/Depart")
@@ -40,6 +37,9 @@ public class DepartController {
 
     @Autowired
     JWTManager jwtManager;
+
+    @Autowired
+    SIGTA_depart sigta_depart;
 
 //    @Transactional
 //    @PostMapping("/insertion_Depart")
@@ -101,74 +101,127 @@ public class DepartController {
 //        }
 //        return new ResponseEntity<>(result , HttpStatus.OK);
 //    }
+//    @Transactional
+//    @PostMapping("/insertion_Depart")
+//    public ResponseEntity<HashMap> insertionEtEnregistrement(@RequestBody Map<String, String> credentials) throws Exception {
+//        HashMap<String, Object> result = new HashMap<>();
+//
+//        // Traitement de l'insertion de départ
+//        HashMap<String, Object> result = new HashMap<>();
+//        String Or = credentials.get("Or");
+//        String date_debut = credentials.get("date_debut");
+//        String date_fin = credentials.get("date_fin");
+//        String token = credentials.get("token");
+//        Optional<Depart_Api> depart_api = this.sigta_depart.getDepartByOr("aaa" , Or);
+//
+//
+//        Optional<Utilisateur> utilisateur = this.utilisateurService.select_Utilisateur_By_id(Integer.parseInt(idUtilisateur));
+//        Optional<Personnel> personnel = this.personnelService.select_Personnel_By_id(Integer.parseInt(IdPersonne));
+//        Date date_arriver = this.departSercvice.ajouterJour(Timestamp.valueOf(date_depart), Integer.parseInt(jour));
+//
+//        Depart d = new Depart();
+//        d.setDates(new Date(new java.util.Date().getTime()));
+//        d.setIM_mission(IM_mission);
+//        d.setIdUtilisateur(utilisateur.get());
+//        d.setIdPersonne(personnel.get());
+//        d.setNumero_OR(numero_OR);
+//        d.setDate_depart(Timestamp.valueOf(date_depart));
+//        d.setDate_arriver(date_arriver);
+//        d.setAvance(avance);
+//
+//        try {
+//            this.departSercvice.enregistrerDepart(d);
+//            result.put("departMessage", "Départ enregistré avec succès");
+//        } catch (Exception e) {
+//            result.put("departErreur", "Erreur lors de l'enregistrement du départ: " + e.getMessage());
+//        }
+//
+//        // Traitement de l'enregistrement des itinéraires
+//        List<HashMap<String, String>> itinerairesData = (List<HashMap<String, String>>) requestData.get("itineraires");
+//        List<Itineraire> itineraires = new ArrayList<>();
+//
+//        for (HashMap<String, String> data : itinerairesData) {
+//            String numero = data.get("numero");
+//            String idRegion_depart = data.get("idRegion_depart");
+//            String idRegion_arriver = data.get("idRegion_arriver");
+//            String idTransport = data.get("idTransport");
+//
+//            Optional<Region> region_depart = this.regionService.select_Region_By_id(Integer.parseInt(idRegion_depart));
+//            Optional<Region> region_arriver = this.regionService.select_Region_By_id(Integer.parseInt(idRegion_arriver));
+//            Optional<Transport> transport = this.transportService.select_Transport_By_id(Integer.parseInt(idTransport));
+//
+//            Itineraire i = new Itineraire();
+//            i.setNumero(numero);
+//            i.setIdRegion_depart(region_depart.get());
+//            i.setIdRegion_arriver(region_arriver.get());
+//            i.setIdDepart(d);
+//            i.setIdTransport(transport.get());
+//            itineraires.add(i);
+//        }
+//
+//        try {
+//            List<Itineraire> itineraireList = this.itineraireService.enregistrerItineraires(itineraires);
+//            result.put("itineraires", itineraireList);
+//        } catch (Exception e) {
+//            result.put("itinerairesErreur", "Erreur lors de l'enregistrement des itinéraires: " + e.getMessage());
+//        }
+//
+//        return new ResponseEntity<>(result, HttpStatus.OK);
+//    }
+
     @Transactional
-    @PostMapping("/insertion_Depart")
-    public ResponseEntity<HashMap> insertionEtEnregistrement(@RequestBody HashMap<String, Object> requestData) throws Exception {
+    @PostMapping("/insertion_API_depart")
+    public ResponseEntity<HashMap> insertion_CatOR(@RequestBody HashMap<String , String> data) throws Exception {
         HashMap<String, Object> result = new HashMap<>();
-
-        // Traitement de l'insertion de départ
-        HashMap<String, String> departData = (HashMap<String, String>) requestData.get("depart");
-        String IM_mission = departData.get("IM_mission");
-        String token = departData.get("token");
-        String idUtilisateur = jwtManager.getClaim(String.valueOf(token), "id");
-        String IdPersonne = departData.get("IdPersonne");
-        String numero_OR = departData.get("numero_OR");
-        String date_depart = departData.get("date_depart");
-        String jour = departData.get("jour");
-        String avance = departData.get("avance");
-
-        Optional<Utilisateur> utilisateur = this.utilisateurService.select_Utilisateur_By_id(Integer.parseInt(idUtilisateur));
-        Optional<Personnel> personnel = this.personnelService.select_Personnel_By_id(Integer.parseInt(IdPersonne));
-        Date date_arriver = this.departSercvice.ajouterJour(Timestamp.valueOf(date_depart), Integer.parseInt(jour));
-
-        Depart d = new Depart();
-        d.setDates(new Date(new java.util.Date().getTime()));
-        d.setIM_mission(IM_mission);
-        d.setIdUtilisateur(utilisateur.get());
-        d.setIdPersonne(personnel.get());
-        d.setNumero_OR(numero_OR);
-        d.setDate_depart(Timestamp.valueOf(date_depart));
-        d.setDate_arriver(date_arriver);
-        d.setAvance(avance);
-
-        try {
-            this.departSercvice.enregistrerDepart(d);
-            result.put("departMessage", "Départ enregistré avec succès");
-        } catch (Exception e) {
-            result.put("departErreur", "Erreur lors de l'enregistrement du départ: " + e.getMessage());
+        String Or = data.get("Or");
+        String date_debut = data.get("date_debut");
+        String date_fin = data.get("date_fin");
+        String token = data.get("token");
+        Optional<Depart_Api> depart_api = this.sigta_depart.getDepartByOr("aaa" , Or);
+        Optional<Utilisateur> utilisateur = this.utilisateurService.select_Utilisateur_By_id(Integer.parseInt(jwtManager.getClaim(String.valueOf(token), "id")));
+        Depart depart = depart_api.get().getDepart();
+        Optional<Depart> verifier_OR = this.departSercvice.findDepartBynumero_OR(depart.getNumero_OR());
+        Optional<Depart> verifier_Bordereau = this.departSercvice.findDepartByBordereau(depart.getBordereau());
+        Optional<Depart> verifier_code_Visa_depart = this.departSercvice.findDepartBycode_Visa_depart(depart.getCode_Visa_depart());
+        if (verifier_OR.isPresent()){
+            result.put("Erreur" , "Cette OR est déjà enregistrée.");
+            return new ResponseEntity<>(result , HttpStatus.OK);
         }
-
-        // Traitement de l'enregistrement des itinéraires
-        List<HashMap<String, String>> itinerairesData = (List<HashMap<String, String>>) requestData.get("itineraires");
-        List<Itineraire> itineraires = new ArrayList<>();
-
-        for (HashMap<String, String> data : itinerairesData) {
-            String numero = data.get("numero");
-            String idRegion_depart = data.get("idRegion_depart");
-            String idRegion_arriver = data.get("idRegion_arriver");
-            String idTransport = data.get("idTransport");
-
-            Optional<Region> region_depart = this.regionService.select_Region_By_id(Integer.parseInt(idRegion_depart));
-            Optional<Region> region_arriver = this.regionService.select_Region_By_id(Integer.parseInt(idRegion_arriver));
-            Optional<Transport> transport = this.transportService.select_Transport_By_id(Integer.parseInt(idTransport));
-
-            Itineraire i = new Itineraire();
-            i.setNumero(numero);
-            i.setIdRegion_depart(region_depart.get());
-            i.setIdRegion_arriver(region_arriver.get());
-            i.setIdDepart(d);
-            i.setIdTransport(transport.get());
-            itineraires.add(i);
+        if (verifier_Bordereau.isPresent()){
+            result.put("Erreur" , "Ce bordereau est déjà enregistré.");
+            return new ResponseEntity<>(result , HttpStatus.OK);
         }
-
+        if (verifier_code_Visa_depart.isPresent()){
+            result.put("Erreur" , "Ce code Visa départ est déjà enregistré.");
+            return new ResponseEntity<>(result , HttpStatus.OK);
+        }
+        depart.setDate_depart(Date.valueOf(date_debut));
+        depart.setDate_arriver(Date.valueOf(date_fin));
+        depart.setIdUtilisateur(utilisateur.get());
+        depart.setDates(new Date(new java.util.Date().getTime()));
+        List<Itineraire> itineraires = depart_api.get().getItineraires();
         try {
+            this.departSercvice.enregistrerDepart(depart);
             List<Itineraire> itineraireList = this.itineraireService.enregistrerItineraires(itineraires);
-            result.put("itineraires", itineraireList);
-        } catch (Exception e) {
-            result.put("itinerairesErreur", "Erreur lors de l'enregistrement des itinéraires: " + e.getMessage());
+            result.put("data", "Depart Enregistrer");
+            return new ResponseEntity<>(result , HttpStatus.OK);
+        }catch (Exception e) {
+            System.out.print("Erreur" + e.getMessage());
+            result.put("Erreur" , "Une erreur s'est produite lors de l'insertion du depart.");
         }
-
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(result , HttpStatus.OK);
+    }
+    @GetMapping("/API_depart")
+    public ResponseEntity<HashMap> API_depart() throws Exception {
+        HashMap<String, Object> result = new HashMap<>();
+        try {
+            Optional<Depart_Api> depart_api = this.sigta_depart.getDepartByOr("aaa" , "qqq");
+            result.put("data",depart_api);
+            return new ResponseEntity<>(result , HttpStatus.OK);
+        }catch (Exception e) {
+            result.put("Erreur" , e.getMessage());
+        }
+        return new ResponseEntity<>(result , HttpStatus.OK);
     }
     @DeleteMapping("/delete_Depart_by_Id/{id}")
     public ResponseEntity<HashMap> delete_Depart_by_Id(@PathVariable("id") int id) throws Exception {

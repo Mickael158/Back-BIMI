@@ -10,46 +10,46 @@ import java.sql.Timestamp;
 public class Depart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idDepart", nullable = false)
+    @Column(name = "iddepart", nullable = false)
     private Integer idDepart;
 
     @Column(name = "dates")
     private Date dates;
 
-    @Column(name = "IM_mission")
-    private String IM_mission;
-
-
     @Column(name = "numero_OR")
     private String numero_OR;
 
+    @ManyToOne
+    @JoinColumn(name = "idpersonnel")
+    private Personnel IdPersonne;
+
+    @Column(name = "Objet_mission")
+    private String Objet_mission;
+
     @Column(name = "date_depart")
-    private Timestamp date_depart;
+    private Date date_depart;
 
     @Column(name = "date_arriver")
     private Date date_arriver;
 
-    @Column(name = "code_Visa")
-    private String code_Visa;
+    @Column(name = "code_Visa_depart")
+    private String code_Visa_depart;
 
-    @Column(name = "avance")
-    private String avance;
+    @Column(name = "code_avance")
+    private String code_avance;
+
+    @Column(name = "engagement")
+    private String engagement;
+
+    @Column(name = "bordereau")
+    private String bordereau;
+
+    @Column(name = "soa")
+    private String soa;
 
     @ManyToOne
-    @JoinColumn(name = "IdPersonne")
-    private Personnel IdPersonne;
-
-    @ManyToOne
-    @JoinColumn(name = "IdUtilisateur")
+    @JoinColumn(name = "idutilisateur")
     private Utilisateur IdUtilisateur;
-
-    public Utilisateur getIdUtilisateur() {
-        return IdUtilisateur;
-    }
-
-    public void setIdUtilisateur(Utilisateur idUtilisateur) {
-        IdUtilisateur = idUtilisateur;
-    }
 
     public Integer getIdDepart() {
         return idDepart;
@@ -67,14 +67,6 @@ public class Depart {
         this.dates = dates;
     }
 
-    public String getIM_mission() {
-        return IM_mission;
-    }
-
-    public void setIM_mission(String IM_mission) {
-        this.IM_mission = IM_mission;
-    }
-
     public String getNumero_OR() {
         return numero_OR;
     }
@@ -83,11 +75,27 @@ public class Depart {
         this.numero_OR = numero_OR;
     }
 
-    public Timestamp getDate_depart() {
+    public Personnel getIdPersonne() {
+        return IdPersonne;
+    }
+
+    public void setIdPersonne(Personnel idPersonne) {
+        IdPersonne = idPersonne;
+    }
+
+    public String getObjet_mission() {
+        return Objet_mission;
+    }
+
+    public void setObjet_mission(String objet_mission) {
+        Objet_mission = objet_mission;
+    }
+
+    public Date getDate_depart() {
         return date_depart;
     }
 
-    public void setDate_depart(Timestamp date_depart) {
+    public void setDate_depart(Date date_depart) {
         this.date_depart = date_depart;
     }
 
@@ -99,27 +107,51 @@ public class Depart {
         this.date_arriver = date_arriver;
     }
 
-    public String getCode_Visa() {
-        return code_Visa;
+    public String getCode_Visa_depart() {
+        return code_Visa_depart;
     }
 
-    public void setCode_Visa(String code_Visa) {
-        this.code_Visa = code_Visa;
+    public void setCode_Visa_depart(String code_Visa_depart) {
+        this.code_Visa_depart = code_Visa_depart;
     }
 
-    public String getAvance() {
-        return avance;
+    public String getCode_avance() {
+        return code_avance;
     }
 
-    public void setAvance(String avance) {
-        this.avance = avance;
+    public void setCode_avance(String code_avance) {
+        this.code_avance = code_avance;
     }
 
-    public Personnel getIdPersonne() {
-        return IdPersonne;
+    public String getEngagement() {
+        return engagement;
     }
 
-    public void setIdPersonne(Personnel idPersonne) {
-        IdPersonne = idPersonne;
+    public void setEngagement(String engagement) {
+        this.engagement = engagement;
+    }
+
+    public String getBordereau() {
+        return bordereau;
+    }
+
+    public void setBordereau(String bordereau) {
+        this.bordereau = bordereau;
+    }
+
+    public String getSoa() {
+        return soa;
+    }
+
+    public void setSoa(String soa) {
+        this.soa = soa;
+    }
+
+    public Utilisateur getIdUtilisateur() {
+        return IdUtilisateur;
+    }
+
+    public void setIdUtilisateur(Utilisateur idUtilisateur) {
+        IdUtilisateur = idUtilisateur;
     }
 }

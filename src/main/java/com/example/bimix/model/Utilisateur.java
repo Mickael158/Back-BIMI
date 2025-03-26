@@ -9,7 +9,7 @@ import java.sql.Date;
 public class Utilisateur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idUtilisateur", nullable = false)
+    @Column(name = "idutilisateur", nullable = false)
     private Integer idUtilisateur;
 
     @Column(name = "dates")
@@ -19,11 +19,11 @@ public class Utilisateur {
     private String pwd;
 
     @ManyToOne
-    @JoinColumn(name = "idPersonnel")
+    @JoinColumn(name = "idpersonnel")
     private Personnel idPersonnel;
 
     @ManyToOne
-    @JoinColumn(name = "idRole")
+    @JoinColumn(name = "idrole")
     private Role idRole;
 
     public Integer getIdUtilisateur() {

@@ -19,6 +19,9 @@ public class UtilisateurService {
     public Optional<Utilisateur> select_Utilisateur_By_id(int id) {
         return this.utilisateurRepository.findById(id);
     }
+    public Optional<Utilisateur> findUtilisateur(int id) {
+        return this.utilisateurRepository.findUtilisateur(id);
+    }
 
     public void delete_Utilisateur_By_id(int id) {
         this.utilisateurRepository.deleteById(id);

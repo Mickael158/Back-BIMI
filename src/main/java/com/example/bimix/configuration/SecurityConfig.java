@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -32,9 +33,9 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(req -> {
                     req
-                            .requestMatchers("/Login/**").permitAll()
+                            .requestMatchers("/**").permitAll()
                             .requestMatchers("/Direction/**").permitAll()
-//                            .anyRequest().authenticated();
+                            .requestMatchers("/Inscription").permitAll()
                             .anyRequest().authenticated();
                 })
                 .httpBasic(Customizer.withDefaults());
@@ -65,4 +66,6 @@ public class SecurityConfig {
     public JWTInterceptor jwtInterceptor() {
         return new JWTInterceptor();
     }
+
+
 }

@@ -1,4 +1,4 @@
-package com.example.bimix.controller;
+package com.example.bimix.controller.User;
 
 import com.example.bimix.model.Personnel;
 import com.example.bimix.model.Role;

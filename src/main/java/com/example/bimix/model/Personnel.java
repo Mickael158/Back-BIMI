@@ -9,9 +9,8 @@ import java.sql.Date;
 public class Personnel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idPersonnel", nullable = false)
+    @Column(name = "idpersonnel", nullable = false)
     private Integer idPersonnel;
-
 
     @Column(name = "matricule")
     private String matricule;

@@ -54,20 +54,10 @@ CREATE TABLE role(
 CREATE TABLE inscription(
     idInscription SERIAL PRIMARY KEY ,
     matricule VARCHAR,
-    nom VARCHAR,
-    prenom VARCHAR,
-    CIN VARCHAR(12),
-    CIN_du date,
-    indice VARCHAR,
-    CatOR VARCHAR,
-    codeGrade VARCHAR,
     email VARCHAR ,
     tel VARCHAR(10),
-    cles VARCHAR UNIQUE,
     pwd VARCHAR,
-    idFonction INT REFERENCES fonction(idFonction),
-    idService INT REFERENCES service(idService),
-    IdCatOr INT REFERENCES CatOR(IdCatOr)
+    cles VARCHAR
 );
 CREATE TABLE utilisateur(
     idUtilisateur SERIAL PRIMARY KEY ,
@@ -96,27 +86,58 @@ CREATE TABLE region(
     idRegion SERIAL PRIMARY KEY ,
     nom VARCHAR
 );
+CREATE TABLE region_personne(
+   idregion_personne SERIAL PRIMARY KEY ,
+   dates date,
+   idRegion INT REFERENCES region(idRegion),
+   idPersonnel INT REFERENCES personnel(idPersonnel)
+);
 CREATE TABLE transport(
   idtransport SERIAL PRIMARY KEY ,
   nom VARCHAR
 );
 CREATE TABLE depart(
-    idDepart SERIAL PRIMARY KEY ,
+    iddepart SERIAL PRIMARY KEY ,
     dates DATE,
-    IM_mission VARCHAR,
-    IdUtilisateur INT REFERENCES utilisateur(idUtilisateur),
-    IdPersonne INT REFERENCES personnel(idPersonnel),
-    numero_OR VARCHAR,
-    date_depart TIMESTAMP,
+    numero_OR VARCHAR UNIQUE,
+    Idpersonnel INT REFERENCES personnel(idPersonnel),
+    Objet_mission VARCHAR,
+    date_depart date,
     date_arriver date,
-    code_Visa varchar,
-    avance VARCHAR,
+    code_Visa_depart varchar UNIQUE ,
+    code_avance varchar UNIQUE ,
+    engagement varchar UNIQUE ,
+    bordereau VARCHAR UNIQUE,
+    soa VARCHAR,
+    IdUtilisateur INT REFERENCES utilisateur(idUtilisateur)
 );
 CREATE TABLE itineraire(
     idItineraire SERIAL PRIMARY KEY ,
-    idDepart INT REFERENCES depart(idDepart),
+    iddepart INT REFERENCES depart(iddepart),
     numero INT,
     idRegion_depart INT REFERENCES region(idRegion),
     idRegion_arriver INT REFERENCES region(idRegion),
     idTransport INT REFERENCES transport(idtransport)
 );
+CREATE TABLE passage(
+   idpassage SERIAL PRIMARY KEY ,
+   dates DATE,
+   numero_OR VARCHAR,
+   Idpersonnel INT REFERENCES personnel(idPersonnel),
+   date_passage date,
+   objet_mission VARCHAR,
+   code_visa_passage VARCHAR UNIQUE,
+   idItineraire INT REFERENCES itineraire(idItineraire),
+   IdUtilisateur INT REFERENCES utilisateur(idUtilisateur)
+);
+CREATE TABLE destination(
+    iddestination SERIAL PRIMARY KEY ,
+    dates date,
+    numero_Or VARCHAR UNIQUE,
+    Idpersonnel INT REFERENCES personnel(idPersonnel),
+    objet_mission VARCHAR,
+    date_arriver_destination DATE,
+    code_visa_destination VARCHAR UNIQUE ,
+    IdUtilisateur INT REFERENCES utilisateur(idUtilisateur)
+);
+select * from destination where code_visa_destination

@@ -28,7 +28,7 @@ public class LoginService {
             }
         }
         else {
-            throw new Exception("Email incorrect");
+            throw new Exception("Matricule incorrect");
         }
     }
 }

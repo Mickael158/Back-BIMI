@@ -8,26 +8,26 @@ import jakarta.persistence.*;
 public class Itineraire {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idItineraire", nullable = false)
+    @Column(name = "iditineraire", nullable = false)
     private Integer idItineraire;
 
     @Column(name = "numero")
-    private String numero;
+    private int numero;
 
     @ManyToOne
-    @JoinColumn(name = "idDepart")
+    @JoinColumn(name = "iddepart")
     private Depart idDepart;
 
     @ManyToOne
-    @JoinColumn(name = "idRegion_depart")
+    @JoinColumn(name = "idregion_depart")
     private Region idRegion_depart;
 
     @ManyToOne
-    @JoinColumn(name = "idRegion_arriver")
+    @JoinColumn(name = "idregion_arriver")
     private Region idRegion_arriver;
 
     @ManyToOne
-    @JoinColumn(name = "idTransport")
+    @JoinColumn(name = "idtransport")
     private Transport idTransport;
 
     public Transport getIdTransport() {
@@ -46,11 +46,11 @@ public class Itineraire {
         this.idItineraire = idItineraire;
     }
 
-    public String getNumero() {
+    public int getNumero() {
         return numero;
     }
 
-    public void setNumero(String numero) {
+    public void setNumero(int numero) {
         this.numero = numero;
     }
 

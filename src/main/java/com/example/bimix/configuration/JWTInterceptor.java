@@ -36,7 +36,6 @@ public class JWTInterceptor extends OncePerRequestFilter {
                 jwt.validateToken(token);
 
                 String matricule = jwt.getClaim(token, "matricule");
-
                 Utilisateur utilisateur = this.LoginService.login(matricule);
 
                 CustomUserDetails userDetails = new CustomUserDetails(utilisateur);

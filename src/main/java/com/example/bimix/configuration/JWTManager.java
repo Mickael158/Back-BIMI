@@ -34,6 +34,9 @@ public class JWTManager {
                 .setExpiration(new Date(currentDate.getTime() + dayToMs(this.jwt_expiration_days)))
                 .claim("id", String.valueOf(utilisateur.getIdUtilisateur()))
                 .claim("role", String.valueOf(utilisateur.getIdRole()))
+                .claim("nom", String.valueOf(utilisateur.getIdPersonnel().getNom()))
+                .claim("prenom", String.valueOf(utilisateur.getIdPersonnel().getPrenom()))
+                .claim("matricule", String.valueOf(utilisateur.getIdPersonnel().getMatricule()))
                 .signWith(key)
                 .compact();
     }

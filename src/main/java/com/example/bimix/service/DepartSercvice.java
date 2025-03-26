@@ -25,6 +25,15 @@ public class DepartSercvice {
     public Optional<Depart> select_Depart_By_id(int id) {
         return this.departRepository.findById(id);
     }
+    public Optional<Depart> findDepartBynumero_OR(String or) {
+        return this.departRepository.findDepartBynumero_OR(or);
+    }
+    public Optional<Depart> findDepartByBordereau(String bordereau) {
+        return this.departRepository.findDepartByBordereau(bordereau);
+    }
+    public Optional<Depart> findDepartBycode_Visa_depart(String code_Visa_depart) {
+        return this.departRepository.findDepartBycode_Visa_depart(code_Visa_depart);
+    }
 
     public void delete_Depart_By_id(int id) {
         this.departRepository.deleteById(id);

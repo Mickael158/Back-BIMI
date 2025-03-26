@@ -9,7 +9,7 @@ import java.sql.Date;
 public class Inscription {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idInscription", nullable = false)
+    @Column(name = "idinscription", nullable = false)
     private Integer idInscription;
 
     @Column(name = "matricule")
