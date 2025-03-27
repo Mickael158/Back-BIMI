@@ -33,9 +33,8 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(req -> {
                     req
-                            .requestMatchers("/**").permitAll()
-                            .requestMatchers("/Direction/**").permitAll()
-                            .requestMatchers("/Inscription").permitAll()
+                            .requestMatchers("/Login/**").permitAll()
+                            .requestMatchers("/Inscription/**").permitAll()
                             .anyRequest().authenticated();
                 })
                 .httpBasic(Customizer.withDefaults());

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -36,4 +37,9 @@ public interface ItineraireRepository extends JpaRepository<Itineraire , Integer
               select MAX(ip.numero) from itineraire ip WHERE ip.iddepart = d.iddepart);
     """,nativeQuery = true)
     Optional<Itineraire> findItineraireFin(@Param("numero_OR") String numero_OR);
+
+    @Query(value = """
+      select * from  itineraire where iddepart=:iddepart
+    """,nativeQuery = true)
+    List<Itineraire> findItineraireByIdDepart(@Param("iddepart") int iddepart);
 }

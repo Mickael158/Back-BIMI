@@ -24,8 +24,8 @@ public class DestionService {
     public Optional<Destination> findDestinationBynumero_OR(String or) {
         return this.destinationRepository.findDestinationBynumero_OR(or);
     }
-    public Optional<Destination> findDepartByBordereau(String bordereau) {
-        return this.destinationRepository.findDestinationByCode_visa_passage(bordereau);
+    public Optional<Destination> findDestinationByCode_visa_destination(String code_visa_passage) {
+        return this.destinationRepository.findDestinationByCode_visa_destination(code_visa_passage);
     }
 
     public void delete_Destination_By_id(int id) {

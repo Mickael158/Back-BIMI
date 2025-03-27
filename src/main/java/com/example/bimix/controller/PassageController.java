@@ -46,6 +46,10 @@ public class PassageController {
         String date_passage = data.get("date_passage");
         String token = data.get("token");
         Optional<Passage_Api> passage_api = this.sigta_passage.getPassageNextByOr("" , Or);
+        if (passage_api == null){
+            result.put("Erreur" , "Cette OR n'a plus de passage à effectuer.");
+            return new ResponseEntity<>(result , HttpStatus.OK);
+        }
         Optional<Utilisateur> utilisateur = this.utilisateurService.select_Utilisateur_By_id(Integer.parseInt(jwtManager.getClaim(String.valueOf(token), "id")));
         Depart depart = passage_api.get().getDepart();
         Optional<Depart> verifier_OR = this.departSercvice.findDepartBynumero_OR(depart.getNumero_OR());
@@ -59,6 +63,10 @@ public class PassageController {
             return new ResponseEntity<>(result , HttpStatus.OK);
         }
         Itineraire itineraire = passage_api.get().getItineraires();
+        if (itineraire == null){
+            result.put("Erreur" , "Il n'y a plus de passage");
+            return new ResponseEntity<>(result , HttpStatus.OK);
+        }
         Passage p = new Passage();
         p.setNumero_OR(depart.getNumero_OR());
         p.setIdPersonne(depart.getIdPersonne());

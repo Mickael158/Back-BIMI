@@ -29,6 +29,10 @@ public class ItineraireService {
         return this.itineraireRepository.findAll();
     }
 
+    public List<Itineraire> findItineraireByIdDepart(int id) {
+        return this.itineraireRepository.findItineraireByIdDepart(id);
+    }
+
     public List<Itineraire> enregistrerItineraires (List<Itineraire> itineraireList) {
         return this.itineraireRepository.saveAll(itineraireList);
     }

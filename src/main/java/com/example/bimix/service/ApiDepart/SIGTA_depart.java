@@ -53,7 +53,7 @@ public class SIGTA_depart {
         depart.setDate_arriver(Date.valueOf("2025-04-25"));
         depart.setCode_Visa_depart("qwerty");
         depart.setCode_avance("azerty");
-        depart.setEngagement("aaa");
+        depart.setEngagement(Date.valueOf("2025-04-25"));
         depart.setBordereau("zaq");
         depart.setSoa("qqqq");
         Optional<Region> region1 = this.regionRepository.findById(1);

@@ -106,7 +106,7 @@ CREATE TABLE depart(
     date_arriver date,
     code_Visa_depart varchar UNIQUE ,
     code_avance varchar UNIQUE ,
-    engagement varchar UNIQUE ,
+    engagement DATE,
     bordereau VARCHAR UNIQUE,
     soa VARCHAR,
     IdUtilisateur INT REFERENCES utilisateur(idUtilisateur)
@@ -119,6 +119,7 @@ CREATE TABLE itineraire(
     idRegion_arriver INT REFERENCES region(idRegion),
     idTransport INT REFERENCES transport(idtransport)
 );
+
 CREATE TABLE passage(
    idpassage SERIAL PRIMARY KEY ,
    dates DATE,
@@ -135,9 +136,41 @@ CREATE TABLE destination(
     dates date,
     numero_Or VARCHAR UNIQUE,
     Idpersonnel INT REFERENCES personnel(idPersonnel),
+    iditineraire INT REFERENCES itineraire(idItineraire),
     objet_mission VARCHAR,
     date_arriver_destination DATE,
     code_visa_destination VARCHAR UNIQUE ,
     IdUtilisateur INT REFERENCES utilisateur(idUtilisateur)
 );
-select * from destination where code_visa_destination
+CREATE TABLE retour(
+  idretour SERIAL PRIMARY KEY ,
+   dates date,
+  numero_OR VARCHAR,
+  Idpersonnel INT REFERENCES personnel(idPersonnel),
+  objet_mission VARCHAR,
+  date_visa_fin date,
+  code_visa_fin VARCHAR,
+  IdUtilisateur INT REFERENCES utilisateur(idUtilisateur)
+);
+CREATE TABLE paiement(
+  idpaiement SERIAL PRIMARY KEY ,
+  dates date,
+  Iddepart INT REFERENCES depart(iddepart),
+  date_suivit DATE,
+  date_sortie_bon_de_caisse DATE
+);
+
+CREATE TABLE paiement_situation(
+  idpaiement_situation SERIAL PRIMARY KEY ,
+  dates date,
+  situation VARCHAR,
+  Idpaiement INT REFERENCES paiement(idpaiement),
+  IdUtilisateur INT REFERENCES utilisateur(idUtilisateur)
+);
+CREATE TABLE modif_paiment(
+    idmodif_paiment SERIAL PRIMARY KEY ,
+    dates date,
+    modif VARCHAR,
+    Idpaiement INT REFERENCES paiement(idpaiement),
+    IdUtilisateur INT REFERENCES utilisateur(idUtilisateur)
+);

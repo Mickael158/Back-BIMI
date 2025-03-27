@@ -39,7 +39,7 @@ public class Depart {
     private String code_avance;
 
     @Column(name = "engagement")
-    private String engagement;
+    private Date engagement;
 
     @Column(name = "bordereau")
     private String bordereau;
@@ -123,11 +123,11 @@ public class Depart {
         this.code_avance = code_avance;
     }
 
-    public String getEngagement() {
+    public Date getEngagement() {
         return engagement;
     }
 
-    public void setEngagement(String engagement) {
+    public void setEngagement(Date engagement) {
         this.engagement = engagement;
     }
 

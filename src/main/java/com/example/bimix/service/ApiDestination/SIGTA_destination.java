@@ -47,7 +47,9 @@ public class SIGTA_destination {
 
         //return response.getBody();
         Optional<Depart> depart = this.departRepository.findDepartBynumero_OR(request);
+
         Optional<Itineraire> itineraire = this.itineraireRepository.findItineraireFin(request);
+        System.out.println(depart.get());
         String code = "12345";
         return Optional.of(new Destination_Api(depart.get(), itineraire.get() ,code));
     }
