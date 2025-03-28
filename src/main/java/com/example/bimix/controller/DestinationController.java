@@ -14,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.util.HashMap;
@@ -43,7 +40,7 @@ public class DestinationController {
 
     @Transactional
     @PostMapping("/insertion_API_destination")
-    public ResponseEntity<HashMap> insertion_CatOR(@RequestBody HashMap<String , String> data) throws Exception {
+    public ResponseEntity<HashMap> insertion_API_destination(@RequestBody HashMap<String , String> data) throws Exception {
         HashMap<String, Object> result = new HashMap<>();
         String Or = data.get("Or");
         String date_arriver_destination = data.get("date_arriver_destination");
@@ -87,12 +84,12 @@ public class DestinationController {
         return new ResponseEntity<>(result , HttpStatus.OK);
     }
 
-    @GetMapping("/API_destination")
-    public ResponseEntity<HashMap> API_depart() throws Exception {
+    @GetMapping("/API_destination/{or}")
+    public ResponseEntity<HashMap> API_destination(@PathVariable("or") String or) throws Exception {
         HashMap<String, Object> result = new HashMap<>();
         try {
 
-            Optional<Destination_Api> passage_api = this.sigta_destination.getDestinationByOr("" , "098765");
+            Optional<Destination_Api> passage_api = this.sigta_destination.getDestinationByOr("" , or);
             result.put("data",passage_api);
             return new ResponseEntity<>(result , HttpStatus.OK);
         }catch (Exception e) {

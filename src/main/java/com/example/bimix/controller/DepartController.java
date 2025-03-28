@@ -43,7 +43,7 @@ public class DepartController {
 
     @Transactional
     @PostMapping("/insertion_API_depart")
-    public ResponseEntity<HashMap> insertion_CatOR(@RequestBody HashMap<String , String> data) throws Exception {
+    public ResponseEntity<HashMap> insertion_API_depart(@RequestBody HashMap<String , String> data) throws Exception {
         HashMap<String, Object> result = new HashMap<>();
         String Or = data.get("Or");
         String date_debut = data.get("date_debut");
@@ -83,11 +83,11 @@ public class DepartController {
         }
         return new ResponseEntity<>(result , HttpStatus.OK);
     }
-    @GetMapping("/API_depart")
-    public ResponseEntity<HashMap> API_depart() throws Exception {
+    @GetMapping("/API_depart/{or}")
+    public ResponseEntity<HashMap> API_depart(@PathVariable("or") String or) throws Exception {
         HashMap<String, Object> result = new HashMap<>();
         try {
-            Optional<Depart_Api> depart_api = this.sigta_depart.getDepartByOr("aaa" , "qqq");
+            Optional<Depart_Api> depart_api = this.sigta_depart.getDepartByOr("aaa" , or);
             result.put("data",depart_api);
             return new ResponseEntity<>(result , HttpStatus.OK);
         }catch (Exception e) {

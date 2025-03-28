@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.util.HashMap;
@@ -42,7 +39,7 @@ public class RetourController {
 
     @Transactional
     @PostMapping("/insertion_API_retour")
-    public ResponseEntity<HashMap> insertion_CatOR(@RequestBody HashMap<String , String> data) throws Exception {
+    public ResponseEntity<HashMap> insertion_API_retour(@RequestBody HashMap<String , String> data) throws Exception {
         HashMap<String, Object> result = new HashMap<>();
         String Or = data.get("Or");
         String date_visa_fin = data.get("date_visa_fin");
@@ -84,11 +81,11 @@ public class RetourController {
         return new ResponseEntity<>(result , HttpStatus.OK);
     }
 
-    @GetMapping("/API_retour")
-    public ResponseEntity<HashMap> API_retour() throws Exception {
+    @GetMapping("/API_retour/{or}")
+    public ResponseEntity<HashMap> API_retour(@PathVariable("or") String or) throws Exception {
         HashMap<String, Object> result = new HashMap<>();
         try {
-            Optional<Retour_Api> retour_api = this.sigta_retour.getRetourByOr("" , "098765");
+            Optional<Retour_Api> retour_api = this.sigta_retour.getRetourByOr("" , or);
             result.put("data",retour_api);
             return new ResponseEntity<>(result , HttpStatus.OK);
         }catch (Exception e) {

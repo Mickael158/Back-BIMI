@@ -34,7 +34,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(req -> {
                     req
                             .requestMatchers("/Login/**").permitAll()
-                            .requestMatchers("/Inscription/**").permitAll()
+                            .requestMatchers("/Inscription/insertion_Inscription").permitAll()
+                            .requestMatchers("/Inscription/validation_Inscription").permitAll()
                             .anyRequest().authenticated();
                 })
                 .httpBasic(Customizer.withDefaults());

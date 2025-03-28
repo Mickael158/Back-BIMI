@@ -19,6 +19,9 @@ public class ServiceService {
     public Optional<ServiceM> select_ServiceM_By_id(int id) {
         return this.serviceRepository.findById(id);
     }
+    public Optional<ServiceM> findServiceMByServiceAndDirection(String service , String direction) {
+        return this.serviceRepository.findServiceMByServiceAndDirection(service, direction);
+    }
 
     public void delete_ServiceM_By_id(int id) {
         this.serviceRepository.deleteById(id);

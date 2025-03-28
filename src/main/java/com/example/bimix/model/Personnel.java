@@ -33,6 +33,13 @@ public class Personnel {
     @Column(name = "tel")
     private String tel;
 
+    @Column(name = "dates")
+    private Date dates;
+
+
+    @Column(name = "status")
+    private Boolean status;
+
     public Integer getIdPersonnel() {
         return idPersonnel;
     }
@@ -76,6 +83,22 @@ public class Personnel {
 
     public String getEmail() {
         return email;
+    }
+
+    public Date getDates() {
+        return dates;
+    }
+
+    public void setDates(Date dates) {
+        this.dates = dates;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     public void setEmail(String email) {

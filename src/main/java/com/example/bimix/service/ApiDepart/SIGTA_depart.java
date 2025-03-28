@@ -46,7 +46,7 @@ public class SIGTA_depart {
         //return response.getBody();
         Optional<Personnel> personnel = this.personnelRepository.findPersonIM("123456");
         Depart depart = new Depart();
-        depart.setNumero_OR("098765");
+        depart.setNumero_OR(request);
         depart.setIdPersonne(personnel.get());
         depart.setObjet_mission("Asa");
         depart.setDate_depart(Date.valueOf("2025-03-25"));

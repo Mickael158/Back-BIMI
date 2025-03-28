@@ -19,6 +19,9 @@ public class CatORService {
     public Optional<CatOR> select_CatOR_By_id(int id) {
         return this.catORRepository.findById(id);
     }
+    public Optional<CatOR> findCatOrByNomAndCodeGradeAndIndice(String nom, String Code_grade, String Indice) {
+        return this.catORRepository.findCatOrByNomAndCodeGradeAndIndice(nom, Code_grade , Indice);
+    }
 
     public void delete_CatOR_By_id(int id) {
         this.catORRepository.deleteById(id);

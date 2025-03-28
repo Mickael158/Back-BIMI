@@ -19,6 +19,9 @@ public class FonctionService {
     public Optional<Fonction> select_Fonction_By_id(int id) {
         return this.fonctionRepository.findById(id);
     }
+    public Optional<Fonction> findFonctionByNom(String nom) {
+        return this.fonctionRepository.findFonctionByNom(nom);
+    }
 
     public void delete_Fonction_By_id(int id) {
         this.fonctionRepository.deleteById(id);

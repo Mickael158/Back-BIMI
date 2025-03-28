@@ -93,21 +93,32 @@ public class InscriptionController {
         HashMap<String, Object> result = new HashMap<>();
         String matricule = data.get("matricule");
         String cles = data.get("cles");
+        System.out.println(cles);
         try {
             Optional<Personnel> personnel = personnelService.select_Personnel_By_IM(matricule);
             Optional<Inscription> inscription = inscriptionService.selectInscriptionByIm(matricule);
-            if (personnel.isPresent() && inscription.isPresent()){
-                Optional<Role> role = this.roleService.select_Role_By_id(1);
-                Utilisateur u = new Utilisateur();
-                u.setIdPersonnel(personnel.get());
-                u.setIdRole(role.get());
-                u.setPwd(inscription.get().getPwd());
-                Utilisateur utilisateur = this.utilisateurService.enregistrerUtilisateur(u) ;
-                result.put("data", "Inscription Valider");
-                this.inscriptionService.deleteByMatricule(matricule);
+            if (personnel.isPresent()){
+                System.out.println(inscription.get().getCles());
+                if (inscription.isPresent()){
+                    if (inscription.get().getCles().equals(cles)){
+                        Optional<Role> role = this.roleService.select_Role_By_id(1);
+                        Utilisateur u = new Utilisateur();
+                        u.setIdPersonnel(personnel.get());
+                        u.setIdRole(role.get());
+                        u.setPwd(inscription.get().getPwd());
+                        Utilisateur utilisateur = this.utilisateurService.enregistrerUtilisateur(u) ;
+                        result.put("data", "Inscription Valider");
+                        this.inscriptionService.deleteByMatricule(matricule);
+                    }else {
+                        result.put("erreur", "Votre cles de validation est incorrecte.");
+                    }
+                }
+                else {
+                    result.put("erreur", "Vos n'avait pas encore fait votre inscription");
+                }
             }
             else {
-                result.put("data", "Votre Matricule n'est pas encore enregistrer");
+                result.put("erreur", "Votre Matricule n'est pas encore enregistrer");
             }
             return new ResponseEntity<>(result , HttpStatus.OK);
         }catch (Exception e) {

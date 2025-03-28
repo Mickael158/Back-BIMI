@@ -56,6 +56,8 @@ public class PersonnelController {
         Optional<Fonction> fonction = this.fonctionService.select_Fonction_By_id(Integer.parseInt(idfonction));
         Optional<ServiceM> idserviceM = this.serviceService.select_ServiceM_By_id(Integer.parseInt(idservice));
         Personnel p = new Personnel();
+        p.setDates(new Date(new java.util.Date().getTime()));
+        p.setStatus(true);
         p.setMatricule(matricule);
         p.setNom(nom);
         p.setPrenom(prenom);

@@ -53,7 +53,7 @@ public class PaiementController {
 
     @Transactional
     @PostMapping("/insertion_API_paiement")
-    public ResponseEntity<HashMap> insertion_CatOR(@RequestBody HashMap<String , String> data) throws Exception {
+    public ResponseEntity<HashMap> insertion_API_paiement(@RequestBody HashMap<String , String> data) throws Exception {
         HashMap<String, Object> result = new HashMap<>();
         String Or = data.get("Or");
         String date_sortie_bon_de_caisse = data.get("date_sortie_bon_de_caisse");
@@ -63,7 +63,7 @@ public class PaiementController {
 
         Optional<Utilisateur> utilisateur = this.utilisateurService.select_Utilisateur_By_id(Integer.parseInt(jwtManager.getClaim(String.valueOf(token), "id")));
         Optional<Paiement_api> paiement_api = this.paiementService.selectPaimentByOr("098765");
-        if (paiement_api.get().getPaiement().isPresent() && paiement_api.get().getItineraires().size() != 0 && paiement_api.get().getDepart().isPresent() && paiement_api.get().getPaiement_situations().size() != 0){
+        if (paiement_api.get().getPaiement().isPresent() && paiement_api.get().getItineraires().size() != 0 && paiement_api.get().getDepart().isPresent()){
             Modif_paiement mp = new Modif_paiement();
             String modif = "Or : "+ Or + " date_sortie_bon_de_caisse : " + date_sortie_bon_de_caisse + " date_premier_suivi : " + date_premier_suivi + " situation_tresor : " + situation_tresor;
             mp.setModif(modif);
@@ -117,13 +117,13 @@ public class PaiementController {
         }
         return new ResponseEntity<>(result , HttpStatus.OK);
     }
-    @GetMapping("/API_paiement")
-    public ResponseEntity<HashMap> API_depart() throws Exception {
+    @GetMapping("/API_paiement/{or}")
+    public ResponseEntity<HashMap> API_paiement(@PathVariable("or") String or) throws Exception {
         HashMap<String, Object> result = new HashMap<>();
         try {
-            Optional<Paiement_api> paiement_api = this.paiementService.selectPaimentByOr("098765");
-            Optional<Depart_Api> depart_api = this.sigta_paiement.getPaiementByOr("aaa" , "098765");
-            if (paiement_api.get().getPaiement().isPresent() && paiement_api.get().getItineraires().size() != 0 && paiement_api.get().getDepart().isPresent() && paiement_api.get().getPaiement_situations().size() != 0){
+            Optional<Paiement_api> paiement_api = this.paiementService.selectPaimentByOr(or);
+            Optional<Depart_Api> depart_api = this.sigta_paiement.getPaiementByOr("aaa" , or);
+            if (paiement_api.get().getPaiement().isPresent() && paiement_api.get().getItineraires().size() != 0 && paiement_api.get().getDepart().isPresent()){
                 result.put("data",paiement_api);
             }else {
                 result.put("data",depart_api);

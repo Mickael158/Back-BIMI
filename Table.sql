@@ -9,25 +9,30 @@ CREATE TABLE direction(
       nom VARCHAR UNIQUE ,
       idDirection INT REFERENCES direction(idDirection)
  );
+
  CREATE TABLE fonction(
    idFonction SERIAL PRIMARY KEY ,
    nom VARCHAR UNIQUE
  );
+
 CREATE TABLE CatOR(
     IdCatOr SERIAL PRIMARY KEY ,
     nom VARCHAR UNIQUE ,
     codeGrade VARCHAR UNIQUE ,
     indice VARCHAR UNIQUE
 );
+
 CREATE TABLE personnel(
     idPersonnel SERIAL PRIMARY KEY ,
+    dates date,
     matricule VARCHAR UNIQUE ,
     nom VARCHAR,
     prenom VARCHAR,
     CIN VARCHAR(12) UNIQUE ,
     CIN_du date,
     email VARCHAR UNIQUE ,
-    tel VARCHAR(10) UNIQUE
+    tel VARCHAR(10) UNIQUE,
+    status boolean
 );
 CREATE TABLE CatOr_personne(
     IdCatOr_personne SERIAL PRIMARY KEY ,
@@ -66,6 +71,7 @@ CREATE TABLE utilisateur(
     idRole INT REFERENCES role(idRole),
     pwd VARCHAR
 );
+
 CREATE TABLE import_personnel(
      idimport_personnel SERIAL PRIMARY KEY ,
      IM VARCHAR,
@@ -82,6 +88,7 @@ CREATE TABLE import_personnel(
      service VARCHAR,
      idUtilisateur INT REFERENCES utilisateur(idUtilisateur)
 );
+
 CREATE TABLE region(
     idRegion SERIAL PRIMARY KEY ,
     nom VARCHAR

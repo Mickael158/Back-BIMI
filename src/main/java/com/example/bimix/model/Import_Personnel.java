@@ -25,12 +25,12 @@ public class Import_Personnel {
     private String CIN;
 
     @Column(name = "date_CIN")
-    private String date_CIN;
+    private Date date_CIN;
 
     @Column(name = "indice")
     private String indice;
 
-    @Column(name = "catOr")
+    @Column(name = "cator")
     private String catOr;
 
     @Column(name = "code_grade")
@@ -49,7 +49,7 @@ public class Import_Personnel {
     private String service;
 
     @ManyToOne
-    @JoinColumn(name = "idUtilisateur")
+    @JoinColumn(name = "idutilisateur")
     private Utilisateur utilisateur;
 
     public Utilisateur getUtilisateur() {
@@ -100,11 +100,11 @@ public class Import_Personnel {
         this.CIN = CIN;
     }
 
-    public String getDate_CIN() {
+    public Date getDate_CIN() {
         return date_CIN;
     }
 
-    public void setDate_CIN(String date_CIN) {
+    public void setDate_CIN(Date date_CIN) {
         this.date_CIN = date_CIN;
     }
 
