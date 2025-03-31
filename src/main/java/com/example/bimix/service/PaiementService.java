@@ -46,8 +46,11 @@ public class PaiementService {
     public void updatePaiement(Date dateSuivit, Date dateSortieBonDeCaisse, Integer idPaiement) {
         this.paiementRepository.updatePaiement(dateSuivit,dateSortieBonDeCaisse,idPaiement);
     }
-    public List<Paiement> selectAll_Paiement() {
-        return this.paiementRepository.findAll();
+    public List<Paiement> findPaiementByIdUtilisateurLim(int idUtilisateur , int lim) {
+        return this.paiementRepository.findPaiementByIdUtilisateurLim(idUtilisateur , lim);
+    }
+    public List<Paiement> findPaiementLimiter(int lim) {
+        return this.paiementRepository.findPaiementLimiter(lim);
     }
     public Optional<Paiement_api> selectPaimentByOr(String Or) {
         Optional<Depart> depart = this.departRepository.findDepartBynumero_OR(Or);

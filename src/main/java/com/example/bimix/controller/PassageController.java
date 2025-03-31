@@ -96,4 +96,27 @@ public class PassageController {
         }
         return new ResponseEntity<>(result , HttpStatus.OK);
     }
+    @GetMapping("/select_passage")
+    public ResponseEntity<HashMap> select_passage(@RequestBody HashMap<String , String> data) throws Exception {
+        HashMap<String, Object> result = new HashMap<>();
+        String token = data.get("token");
+        String lim = data.get("lim");
+        Optional<Utilisateur> utilisateur = this.utilisateurService.select_Utilisateur_By_id(Integer.parseInt(jwtManager.getClaim(String.valueOf(token), "id")));
+        try {
+            if (utilisateur.get().getIdRole().getIdRole() == 1){
+                List<Passage> passages = this.passageService.findPassageLimiter(Integer.parseInt(lim));
+                result.put("data",passages);
+            }
+            if (utilisateur.get().getIdRole().getIdRole() == 2){
+                List<Passage> passages = this.passageService.findPassageByIdUtilisateurLim(utilisateur.get().getIdUtilisateur() , Integer.parseInt(lim));
+                result.put("data",passages);
+            }else {
+                result.put("data","null");
+            }
+            return new ResponseEntity<>(result , HttpStatus.OK);
+        }catch (Exception e) {
+            result.put("Erreur" , e.getMessage());
+        }
+        return new ResponseEntity<>(result , HttpStatus.OK);
+    }
 }

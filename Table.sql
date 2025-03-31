@@ -127,7 +127,6 @@ CREATE TABLE itineraire(
     idRegion_arriver INT REFERENCES region(idRegion),
     idTransport INT REFERENCES transport(idtransport)
 );
-
 CREATE TABLE passage(
    idpassage SERIAL PRIMARY KEY ,
    dates DATE,
@@ -139,6 +138,7 @@ CREATE TABLE passage(
    idItineraire INT REFERENCES itineraire(idItineraire),
    IdUtilisateur INT REFERENCES utilisateur(idUtilisateur)
 );
+
 CREATE TABLE destination(
     iddestination SERIAL PRIMARY KEY ,
     dates date,
@@ -160,6 +160,7 @@ CREATE TABLE retour(
   code_visa_fin VARCHAR,
   IdUtilisateur INT REFERENCES utilisateur(idUtilisateur)
 );
+
 CREATE TABLE paiement(
   idpaiement SERIAL PRIMARY KEY ,
   dates date,

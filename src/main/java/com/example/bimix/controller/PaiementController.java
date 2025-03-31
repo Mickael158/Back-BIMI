@@ -134,4 +134,27 @@ public class PaiementController {
         }
         return new ResponseEntity<>(result , HttpStatus.OK);
     }
+    @GetMapping("/select_paiement")
+    public ResponseEntity<HashMap> select_paiement(@RequestBody HashMap<String , String> data) throws Exception {
+        HashMap<String, Object> result = new HashMap<>();
+        String token = data.get("token");
+        String lim = data.get("lim");
+        Optional<Utilisateur> utilisateur = this.utilisateurService.select_Utilisateur_By_id(Integer.parseInt(jwtManager.getClaim(String.valueOf(token), "id")));
+        try {
+            if (utilisateur.get().getIdRole().getIdRole() == 1){
+                List<Paiement> paiements = this.paiementService.findPaiementLimiter(Integer.parseInt(lim));
+                result.put("data",paiements);
+            }
+            if (utilisateur.get().getIdRole().getIdRole() == 2){
+                List<Paiement> paiements = this.paiementService.findPaiementByIdUtilisateurLim(utilisateur.get().getIdUtilisateur() , Integer.parseInt(lim));
+                result.put("data",paiements);
+            }else {
+                result.put("data","null");
+            }
+            return new ResponseEntity<>(result , HttpStatus.OK);
+        }catch (Exception e) {
+            result.put("Erreur" , e.getMessage());
+        }
+        return new ResponseEntity<>(result , HttpStatus.OK);
+    }
 }

@@ -25,12 +25,8 @@ public class ItineraireService {
     public void delete_Itineraire_By_id(int id) {
         this.itineraireRepository.deleteById(id);
     }
-    public List<Itineraire> selectAll_Itineraire() {
-        return this.itineraireRepository.findAll();
-    }
-
-    public List<Itineraire> findItineraireByIdDepart(int id) {
-        return this.itineraireRepository.findItineraireByIdDepart(id);
+    public List<Itineraire> findItineraireByIdDepart(int lim) {
+        return this.itineraireRepository.findItineraireByIdDepart(lim);
     }
 
     public List<Itineraire> enregistrerItineraires (List<Itineraire> itineraireList) {

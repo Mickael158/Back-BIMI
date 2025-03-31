@@ -31,7 +31,10 @@ public class DestionService {
     public void delete_Destination_By_id(int id) {
         this.destinationRepository.deleteById(id);
     }
-    public List<Destination> selectAll_Destination() {
-        return this.destinationRepository.findAll();
+    public List<Destination> findDestinationLimiter(int lim) {
+        return this.destinationRepository.findDestinationLimiter(lim);
+    }
+    public List<Destination> findDestinationByIdUtilisateurLim(int IdUtilisateur , int lim) {
+        return this.destinationRepository.findDestinationByIdUtilisateurLim(IdUtilisateur ,lim);
     }
 }

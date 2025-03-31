@@ -88,8 +88,67 @@ public class DepartController {
         HashMap<String, Object> result = new HashMap<>();
         try {
             Optional<Depart_Api> depart_api = this.sigta_depart.getDepartByOr("aaa" , or);
-            System.out.println(or);
             result.put("data",depart_api);
+            return new ResponseEntity<>(result , HttpStatus.OK);
+        }catch (Exception e) {
+            result.put("Erreur" , e.getMessage());
+        }
+        return new ResponseEntity<>(result , HttpStatus.OK);
+    }
+    @GetMapping("/select_depart")
+    public ResponseEntity<HashMap> select_depart(@RequestBody HashMap<String , String> data) throws Exception {
+        HashMap<String, Object> result = new HashMap<>();
+        String token = data.get("token");
+        String lim = data.get("lim");
+        List<Depart_select> depart_selects = new ArrayList<>();
+        Optional<Utilisateur> utilisateur = this.utilisateurService.select_Utilisateur_By_id(Integer.parseInt(jwtManager.getClaim(String.valueOf(token), "id")));
+        try {
+            if (utilisateur.get().getIdRole().getIdRole() == 1){
+                List<Depart> depart = this.departSercvice.findDepartLim(Integer.parseInt(lim));
+                for (Depart d : depart){
+                    List<Itineraire> itineraires = this.itineraireService.findItineraireByIdDepart(d.getIdDepart());
+                    Depart_select depart_select = new Depart_select();
+                    depart_select.setIdDepart(d.getIdDepart());
+                    depart_select.setDates(d.getDates());
+                    depart_select.setNumero_OR(d.getNumero_OR());
+                    depart_select.setIdPersonne(d.getIdPersonne());
+                    depart_select.setObjet_mission(d.getObjet_mission());
+                    depart_select.setDate_depart(d.getDate_depart());
+                    depart_select.setDate_arriver(d.getDate_arriver());
+                    depart_select.setCode_Visa_depart(d.getCode_Visa_depart());
+                    depart_select.setCode_avance(d.getCode_avance());
+                    depart_select.setEngagement(d.getEngagement());
+                    depart_select.setBordereau(d.getBordereau());
+                    depart_select.setSoa(d.getSoa());
+                    depart_select.setItineraires(itineraires);
+                    depart_selects.add(depart_select);
+                }
+                result.put("data",depart_selects);
+            }
+            if (utilisateur.get().getIdRole().getIdRole() == 2){
+                List<Depart> depart = this.departSercvice.findDepartByIdUtilisateurAndLimit( utilisateur.get().getIdUtilisateur() ,Integer.parseInt(lim));
+                for (Depart d : depart){
+                    List<Itineraire> itineraires = this.itineraireService.findItineraireByIdDepart(d.getIdDepart());
+                    Depart_select depart_select = new Depart_select();
+                    depart_select.setIdDepart(d.getIdDepart());
+                    depart_select.setDates(d.getDates());
+                    depart_select.setNumero_OR(d.getNumero_OR());
+                    depart_select.setIdPersonne(d.getIdPersonne());
+                    depart_select.setObjet_mission(d.getObjet_mission());
+                    depart_select.setDate_depart(d.getDate_depart());
+                    depart_select.setDate_arriver(d.getDate_arriver());
+                    depart_select.setCode_Visa_depart(d.getCode_Visa_depart());
+                    depart_select.setCode_avance(d.getCode_avance());
+                    depart_select.setEngagement(d.getEngagement());
+                    depart_select.setBordereau(d.getBordereau());
+                    depart_select.setSoa(d.getSoa());
+                    depart_select.setItineraires(itineraires);
+                    depart_selects.add(depart_select);
+                }
+                result.put("data",depart_selects);
+            } else {
+                result.put("data","null");
+            }
             return new ResponseEntity<>(result , HttpStatus.OK);
         }catch (Exception e) {
             result.put("Erreur" , e.getMessage());

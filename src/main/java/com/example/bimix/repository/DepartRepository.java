@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -33,5 +35,15 @@ public interface DepartRepository extends JpaRepository<Depart , Integer> {
             where bordereau=:bordereau
     """,nativeQuery = true)
     Optional<Depart> findDepartByBordereau(@Param("bordereau") String bordereau);
+
+    @Query(value = """
+    SELECT * FROM depart WHERE IdUtilisateur = :IdUtilisateur  ORDER BY iddepart DESC LIMIT :lim
+    """, nativeQuery = true)
+    List<Depart> findDepartByIdUtilisateurAndLimit(@Param("IdUtilisateur") int IdUtilisateur, @Param("lim") int lim);
+
+    @Query(value = """
+    SELECT * FROM depart   ORDER BY iddepart DESC LIMIT :lim
+    """, nativeQuery = true)
+    List<Depart> findDepartLim( @Param("lim") int lim);
 
 }

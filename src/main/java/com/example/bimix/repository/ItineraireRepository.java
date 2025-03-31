@@ -39,7 +39,7 @@ public interface ItineraireRepository extends JpaRepository<Itineraire , Integer
     Optional<Itineraire> findItineraireFin(@Param("numero_OR") String numero_OR);
 
     @Query(value = """
-      select * from  itineraire where iddepart=:iddepart
+      select * from  itineraire where iddepart=:iddepart ORDER BY numero ASC
     """,nativeQuery = true)
     List<Itineraire> findItineraireByIdDepart(@Param("iddepart") int iddepart);
 }

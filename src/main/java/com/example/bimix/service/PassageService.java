@@ -1,6 +1,7 @@
 package com.example.bimix.service;
 
 import com.example.bimix.model.Depart;
+import com.example.bimix.model.Itineraire;
 import com.example.bimix.model.Passage;
 import com.example.bimix.repository.DepartRepository;
 import com.example.bimix.repository.PassageRepository;
@@ -24,7 +25,12 @@ public class PassageService {
     public Optional<Passage> findPassageByCode_visa_passage(String Code_visa_passage) {
         return this.passageRepository.findPassageByCode_visa_passage(Code_visa_passage);
     }
-
+    public List<Passage> findPassageByIdUtilisateurLim(int idUtilisateur , int lim) {
+        return this.passageRepository.findPassageByIdUtilisateurLim(idUtilisateur , lim);
+    }
+    public List<Passage> findPassageLimiter(int lim) {
+        return this.passageRepository.findPassageLimiter(lim);
+    }
     public void delete_Passage_By_id(int id) {
         this.passageRepository.deleteById(id);
     }

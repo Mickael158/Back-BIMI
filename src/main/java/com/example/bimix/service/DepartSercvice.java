@@ -38,8 +38,11 @@ public class DepartSercvice {
     public void delete_Depart_By_id(int id) {
         this.departRepository.deleteById(id);
     }
-    public List<Depart> selectAll_Depart() {
-        return this.departRepository.findAll();
+    public List<Depart> findDepartLim(int lim) {
+        return this.departRepository.findDepartLim(lim);
+    }
+    public List<Depart> findDepartByIdUtilisateurAndLimit(int IdUtilisateur , int lim) {
+        return this.departRepository.findDepartByIdUtilisateurAndLimit(IdUtilisateur ,lim);
     }
 
     public  Date ajouterJour(Timestamp timestamp , int jour) {
