@@ -1,10 +1,7 @@
 package com.example.bimix.service;
 
 import com.example.bimix.model.*;
-import com.example.bimix.repository.DepartRepository;
-import com.example.bimix.repository.ItineraireRepository;
-import com.example.bimix.repository.PaiementRepository;
-import com.example.bimix.repository.Paiement_SituatioRepository;
+import com.example.bimix.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
@@ -28,6 +25,12 @@ public class PaiementService {
 
     @Autowired
     private ItineraireRepository itineraireRepository;
+
+    @Autowired
+    private Fonction_personnelRepository fonction_personnelRepository;
+
+    @Autowired
+    private Service_PersonnelRepository servicePersonnelRepository;
     public Paiement enregistrerPaiement(Paiement paiement) {
         return this.paiementRepository.save(paiement);
     }
@@ -65,6 +68,15 @@ public class PaiementService {
             paiement_situations = new ArrayList<>();
             paiement.isEmpty();
         }
-        return Optional.of(new Paiement_api(depart ,itineraires , paiement, paiement_situations));
+        Optional<Fonction_personnel> fonction_personnel = this.fonction_personnelRepository.findFonction_personnelMaxByIdPersonnel(depart.get().getIdPersonne().getIdPersonnel());
+        Optional<Service_Personnel> service_personnel = this.servicePersonnelRepository.findService_PersonnelMaxByIdPersonnel(depart.get().getIdPersonne().getIdPersonnel());
+        if (fonction_personnel.isEmpty()){
+            fonction_personnel.isEmpty();
+        }
+        if (service_personnel.isEmpty()){
+            service_personnel.isEmpty();
+        }
+        Soa_personne soa_personne = new Soa_personne(fonction_personnel.get() , service_personnel.get());
+        return Optional.of(new Paiement_api(depart ,itineraires , paiement, paiement_situations , soa_personne));
     }
 }

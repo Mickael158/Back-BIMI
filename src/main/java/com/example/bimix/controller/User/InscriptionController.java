@@ -93,15 +93,13 @@ public class InscriptionController {
         HashMap<String, Object> result = new HashMap<>();
         String matricule = data.get("matricule");
         String cles = data.get("cles");
-        System.out.println(cles);
         try {
             Optional<Personnel> personnel = personnelService.select_Personnel_By_IM(matricule);
             Optional<Inscription> inscription = inscriptionService.selectInscriptionByIm(matricule);
             if (personnel.isPresent()){
-                System.out.println(inscription.get().getCles());
                 if (inscription.isPresent()){
                     if (inscription.get().getCles().equals(cles)){
-                        Optional<Role> role = this.roleService.select_Role_By_id(1);
+                        Optional<Role> role = this.roleService.select_Role_By_id(2);
                         Utilisateur u = new Utilisateur();
                         u.setIdPersonnel(personnel.get());
                         u.setIdRole(role.get());

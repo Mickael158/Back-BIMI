@@ -116,13 +116,13 @@ public interface Import_PersonnelRepository extends JpaRepository<Import_Personn
                  LEFT JOIN CatOR c ON ip.catOr = c.nom
             AND ip.code_grade = c.codeGrade
             AND ip.indice = c.indice
-        WHERE c.nom IS NULL OR c.codeGrade IS NULL OR c.indice IS NULL
+        WHERE c.nom IS NULL AND c.codeGrade IS NULL AND c.indice IS NULL
     );
     """,nativeQuery = true)
     void insertCatOrImport();
 
     @Query(value = """
-    SELECT DISTINCT IM , nom , prenom , CIN , date_CIN from import_personnel;
+    SELECT DISTINCT IM , nom, prenom, CIN, date_CIN  FROM import_personnel
     """,nativeQuery = true)
     List<Personne_import> selectPersonneImporter();
 
@@ -131,5 +131,5 @@ public interface Import_PersonnelRepository extends JpaRepository<Import_Personn
         from import_personnel\s
             where IM=:IM AND nom=:nom AND prenom=:prenom AND CIN=:CIN AND date_CIN=:date_CIN
     """,nativeQuery = true)
-    Optional<Import_Personnel> selectImport_PersonnelByImAndNomAndPrenomAndCinAndDateDu(@Param("IM") String IM, @Param("nom") String nom, @Param("prenom") String prenom, @Param("CIN") String CIN, @Param("CIN") Date date_CIN);
+    Optional<Import_Personnel> selectImport_PersonnelByImAndNomAndPrenomAndCinAndDateDu(@Param("IM") String IM, @Param("nom") String nom, @Param("prenom") String prenom, @Param("CIN") String CIN, @Param("date_CIN") Date date_CIN);
 }

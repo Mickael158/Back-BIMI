@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -62,6 +63,7 @@ public class Import_PersonnelService {
             p.setEmail("");
             p.setTel("");
             Optional<CatOR> catOR_import = this.catORService.findCatOrByNomAndCodeGradeAndIndice(import_personnel.get().getCatOr() , import_personnel.get().getCode_grade() , import_personnel.get().getIndice());
+
             CatOr_personne cp = new CatOr_personne();
             cp.setIdPersonnel(p);
             cp.setDates(new Date(new java.util.Date().getTime()));
@@ -287,7 +289,7 @@ public class Import_PersonnelService {
                 if (DateUtil.isCellDateFormatted(cell)) {
                     return cell.getLocalDateTimeCellValue().toString();
                 }
-                return String.valueOf(cell.getNumericCellValue());
+                return new BigDecimal(cell.getNumericCellValue()).toPlainString();
             case BOOLEAN:
                 return String.valueOf(cell.getBooleanCellValue());
             case FORMULA:

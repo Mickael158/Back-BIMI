@@ -52,6 +52,7 @@ CREATE TABLE service_personnel(
     idPersonnel INT REFERENCES personnel(idPersonnel),
     idService INT REFERENCES service(idService)
 );
+
 CREATE TABLE role(
     idRole Serial PRIMARY KEY ,
     nom VARCHAR
@@ -77,7 +78,7 @@ CREATE TABLE import_personnel(
      IM VARCHAR,
      nom VARCHAR,
      prenom VARCHAR,
-     CIN VARCHAR,
+     CIN VARCHAR(12),
      date_CIN DATE,
      indice VARCHAR,
      catOr VARCHAR,

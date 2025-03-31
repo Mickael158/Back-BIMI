@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Fonction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idFonction", nullable = false)
+    @Column(name = "idfonction", nullable = false)
     private Integer idFonction;
 
     @Column(name = "nom")

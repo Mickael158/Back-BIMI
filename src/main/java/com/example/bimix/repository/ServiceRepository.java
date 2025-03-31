@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface ServiceRepository extends JpaRepository<ServiceM , Integer> {
 
     @Query(value = """
-    select * from service
+    select service.* from service
         join direction d on d.idDirection = service.idDirection
             where service.nom=:service_nom and d.nom=:d_nom
     """,nativeQuery = true)

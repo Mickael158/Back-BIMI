@@ -1,15 +1,15 @@
 package com.example.bimix.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.sql.Date;
 
 public class Personne_import {
-    @Column(name = "matricule")
+
+    @Id
+    @Column(name = "IM") // Corresponds to the IM column in your SQL table
     private String matricule;
+
     @Column(name = "nom")
     private String nom;
 
@@ -19,9 +19,23 @@ public class Personne_import {
     @Column(name = "CIN")
     private String CIN;
 
-    @Column(name = "CIN_du")
+    @Column(name = "date_CIN") // Ensure this matches the column name in the database
     private Date CIN_du;
 
+    // Default constructor (required by JPA)
+    public Personne_import() {
+    }
+
+    // Constructor with parameters for ease of instantiation
+    public Personne_import(String matricule, String nom, String prenom, String CIN, Date CIN_du) {
+        this.matricule = matricule;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.CIN = CIN;
+        this.CIN_du = CIN_du;
+    }
+
+    // Getters and Setters
     public String getMatricule() {
         return matricule;
     }

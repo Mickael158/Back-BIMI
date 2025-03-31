@@ -10,13 +10,22 @@ public class Paiement_api {
     private List<Itineraire> itineraires;
     private Optional<Paiement> paiement;
     private List<Paiement_situation> paiement_situations;
+    private Soa_personne soa_personne;
 
-    public Paiement_api(Optional<Depart> depart, List<Itineraire> itineraires, Optional<Paiement> paiement, List<Paiement_situation> paiement_situations) {
+    public Paiement_api(Optional<Depart> depart, List<Itineraire> itineraires, Optional<Paiement> paiement, List<Paiement_situation> paiement_situations, Soa_personne soa_personne) {
         this.depart = depart;
         this.itineraires = itineraires;
         this.paiement = paiement;
         this.paiement_situations = paiement_situations;
+        this.soa_personne = soa_personne;
     }
+
+    //    public Paiement_api(Optional<Depart> depart, List<Itineraire> itineraires, Optional<Paiement> paiement, List<Paiement_situation> paiement_situations) {
+//        this.depart = depart;
+//        this.itineraires = itineraires;
+//        this.paiement = paiement;
+//        this.paiement_situations = paiement_situations;
+//    }
 
     public Optional<Depart> getDepart() {
         return depart;

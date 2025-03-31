@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "service")
+@Table(name = "fonction_personnel")
 public class Fonction_personnel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,11 +16,11 @@ public class Fonction_personnel {
     private Date dates;
 
     @ManyToOne
-    @JoinColumn(name = "idFonction")
+    @JoinColumn(name = "idfonction")
     private Fonction idFonction;
 
     @ManyToOne
-    @JoinColumn(name = "idPersonnel")
+    @JoinColumn(name = "idpersonnel")
     private Personnel idPersonnel;
 
     public Integer getIdfonction_personnel() {

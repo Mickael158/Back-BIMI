@@ -5,12 +5,22 @@ import java.util.List;
 public class Destination_Api {
     private Depart depart;
     private Itineraire itineraires;
+    private Soa_personne soa_personne;
     private String Code_visa_destination;
 
-    public Destination_Api(Depart depart, Itineraire itineraires, String code_visa_destination) {
+    public Destination_Api(Depart depart, Itineraire itineraires, Soa_personne soa_personne, String code_visa_destination) {
         this.depart = depart;
         this.itineraires = itineraires;
+        this.soa_personne = soa_personne;
         Code_visa_destination = code_visa_destination;
+    }
+
+    public Soa_personne getSoa_personne() {
+        return soa_personne;
+    }
+
+    public void setSoa_personne(Soa_personne soa_personne) {
+        this.soa_personne = soa_personne;
     }
 
     public Depart getDepart() {

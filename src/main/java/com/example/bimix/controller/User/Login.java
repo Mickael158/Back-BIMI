@@ -35,10 +35,10 @@ public class Login {
         HashMap<String, Object> result = new HashMap<>();
         String matricule = credentials.get("matricule");
         String pswd = credentials.get("pswd");
-        if (!matricule.matches("^[0-9]+$")) {
-            result.put("Erreur", "Matricule invalide. Seuls les chiffres sont autorisés.");
-            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
-        }
+//        if (!matricule.matches("^[0-9]+$")) {
+//            result.put("Erreur", "Matricule invalide. Seuls les chiffres sont autorisés.");
+//            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+//        }
         try {
             Utilisateur utilisateur = this.loginService.login(matricule);
             if (utilisateur != null) {

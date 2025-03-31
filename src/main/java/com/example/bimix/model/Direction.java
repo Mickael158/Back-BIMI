@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Direction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idDirection", nullable = false)
+    @Column(name = "iddirection", nullable = false)
     private Integer idDirection;
 
     @Column(name = "nom")

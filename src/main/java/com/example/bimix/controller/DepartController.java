@@ -88,6 +88,7 @@ public class DepartController {
         HashMap<String, Object> result = new HashMap<>();
         try {
             Optional<Depart_Api> depart_api = this.sigta_depart.getDepartByOr("aaa" , or);
+            System.out.println(or);
             result.put("data",depart_api);
             return new ResponseEntity<>(result , HttpStatus.OK);
         }catch (Exception e) {

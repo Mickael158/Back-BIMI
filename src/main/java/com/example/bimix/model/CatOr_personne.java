@@ -5,22 +5,22 @@ import jakarta.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "service")
+@Table(name = "cator_personne")
 public class CatOr_personne {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "IdCatOr_personne", nullable = false)
+    @Column(name = "idcator_personne", nullable = false)
     private Integer IdCatOr_personne;
 
     @Column(name = "dates")
     private Date dates;
 
     @ManyToOne
-    @JoinColumn(name = "IdCatOr")
+    @JoinColumn(name = "idcator")
     private CatOR IdCatOr;
 
     @ManyToOne
-    @JoinColumn(name = "idPersonnel")
+    @JoinColumn(name = "idpersonnel")
     private Personnel idPersonnel;
 
     public Integer getIdCatOr_personne() {

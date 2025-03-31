@@ -7,12 +7,12 @@ import jakarta.persistence.*;
 public class CatOR {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "IdCatOr", nullable = false)
+    @Column(name = "idcator", nullable = false)
     private Integer IdCatOr;
 
     @Column(name = "nom")
     private String nom;
-    @Column(name = "codeGrade")
+    @Column(name = "codegrade")
     private String codeGrade;
     @Column(name = "indice")
     private String indice;

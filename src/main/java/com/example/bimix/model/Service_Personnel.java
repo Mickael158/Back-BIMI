@@ -10,18 +10,18 @@ public class Service_Personnel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idService_Personnel", nullable = false)
+    @Column(name = "idservice_personnel", nullable = false)
     private Integer idService_Personnel;
 
     @Column(name = "dates")
     private Date dates;
 
     @ManyToOne
-    @JoinColumn(name = "idPersonnel")
+    @JoinColumn(name = "idpersonnel")
     private Personnel idPersonnel;
 
     @ManyToOne
-    @JoinColumn(name = "idService")
+    @JoinColumn(name = "idservice")
     private ServiceM idService;
 
     public Integer getIdService_Personnel() {

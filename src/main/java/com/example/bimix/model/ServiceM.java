@@ -8,14 +8,14 @@ import jakarta.persistence.*;
 public class ServiceM {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idService", nullable = false)
+    @Column(name = "idservice", nullable = false)
     private Integer idService;
 
     @Column(name = "nom")
     private String nom;
 
     @ManyToOne
-    @JoinColumn(name = "idDirection")
+    @JoinColumn(name = "iddirection")
     private Direction idDirection;
 
     public Integer getIdService() {

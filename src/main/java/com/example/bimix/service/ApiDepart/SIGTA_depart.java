@@ -1,9 +1,7 @@
 package com.example.bimix.service.ApiDepart;
 
 import com.example.bimix.model.*;
-import com.example.bimix.repository.PersonnelRepository;
-import com.example.bimix.repository.RegionRepository;
-import com.example.bimix.repository.TransportRepository;
+import com.example.bimix.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -26,6 +24,12 @@ public class SIGTA_depart {
     private PersonnelRepository personnelRepository;
 
     @Autowired
+    private Fonction_personnelRepository fonction_personnelRepository;
+
+    @Autowired
+    private Service_PersonnelRepository servicePersonnelRepository;
+
+    @Autowired
     private RegionRepository regionRepository;
 
     @Autowired
@@ -44,7 +48,18 @@ public class SIGTA_depart {
 //                url, HttpMethod.POST, requestEntity, String.class);
 
         //return response.getBody();
-        Optional<Personnel> personnel = this.personnelRepository.findPersonIM("123456");
+        Optional<Personnel> personnel = this.personnelRepository.findPersonIM("209208");
+
+        Optional<Fonction_personnel> fonction_personnel = this.fonction_personnelRepository.findFonction_personnelMaxByIdPersonnel(personnel.get().getIdPersonnel());
+        Optional<Service_Personnel> service_personnel = this.servicePersonnelRepository.findService_PersonnelMaxByIdPersonnel(personnel.get().getIdPersonnel());
+
+        if (fonction_personnel.isEmpty()){
+            fonction_personnel.isEmpty();
+        }
+        if (service_personnel.isEmpty()){
+            service_personnel.isEmpty();
+        }
+        Soa_personne soa_personne = new Soa_personne(fonction_personnel.get() , service_personnel.get());
         Depart depart = new Depart();
         depart.setNumero_OR(request);
         depart.setIdPersonne(personnel.get());
@@ -74,6 +89,6 @@ public class SIGTA_depart {
         itineraire2.setIdTransport(transport.get());
         itineraires.add(itineraire1);
         itineraires.add(itineraire2);
-        return Optional.of(new Depart_Api(depart, itineraires));
+        return Optional.of(new Depart_Api(depart, itineraires , soa_personne));
     }
 }

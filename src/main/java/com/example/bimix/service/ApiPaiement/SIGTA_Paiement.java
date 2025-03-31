@@ -1,11 +1,10 @@
 package com.example.bimix.service.ApiPaiement;
 
-import com.example.bimix.model.Depart;
-import com.example.bimix.model.Depart_Api;
-import com.example.bimix.model.Itineraire;
-import com.example.bimix.model.Retour_Api;
+import com.example.bimix.model.*;
 import com.example.bimix.repository.DepartRepository;
+import com.example.bimix.repository.Fonction_personnelRepository;
 import com.example.bimix.repository.ItineraireRepository;
+import com.example.bimix.repository.Service_PersonnelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -25,6 +24,12 @@ public class SIGTA_Paiement {
     private DepartRepository departRepository;
 
     @Autowired
+    private Fonction_personnelRepository fonction_personnelRepository;
+
+    @Autowired
+    private Service_PersonnelRepository servicePersonnelRepository;
+
+    @Autowired
     private ItineraireRepository itineraireRepository;
 
 
@@ -42,7 +47,16 @@ public class SIGTA_Paiement {
 
         //return response.getBody();
         Optional<Depart> depart = this.departRepository.findDepartBynumero_OR(request);
+        Optional<Fonction_personnel> fonction_personnel = this.fonction_personnelRepository.findFonction_personnelMaxByIdPersonnel(depart.get().getIdPersonne().getIdPersonnel());
+        Optional<Service_Personnel> service_personnel = this.servicePersonnelRepository.findService_PersonnelMaxByIdPersonnel(depart.get().getIdPersonne().getIdPersonnel());
+        if (fonction_personnel.isEmpty()){
+            fonction_personnel.isEmpty();
+        }
+        if (service_personnel.isEmpty()){
+            service_personnel.isEmpty();
+        }
+        Soa_personne soa_personne = new Soa_personne(fonction_personnel.get() , service_personnel.get());
         List<Itineraire> itineraires = this.itineraireRepository.findItineraireByIdDepart(depart.get().getIdDepart());
-        return Optional.of(new Depart_Api(depart.get() ,itineraires));
+        return Optional.of(new Depart_Api(depart.get() ,itineraires ,soa_personne));
     }
 }
